@@ -11,7 +11,6 @@
   <table class="table">
   <thead>
 
-  product_code	Product_name	Sectors	Price	Quantity	Date_created	Item_Description	
 
 
     <tr>

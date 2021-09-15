@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/vendor/autoload.php';
 
-use App\Controller;
+use App\Controllers;
 
 $page = isset($_GET['page']) ? $_GET['page'] : "";
 
@@ -18,7 +18,7 @@ switch ($page) {
         break;
 
     case "sell_goods-create":
-        $sell_goodsController->store();
+        $sell_goodsController->create();
         break;
     case "sell_goods-delete":
         $id = $_GET['id'];

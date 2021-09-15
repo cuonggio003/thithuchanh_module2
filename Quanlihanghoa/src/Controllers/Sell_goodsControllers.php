@@ -1,15 +1,15 @@
 <?php
 namespace App\Controllers;
 
-use App\Models\Sell_goodsController;
+use App\Models\Sell_goodsModel;
 
-class Sell_goodController extends BaseController
+class Sell_goodsController extends BaseController
 {
     protected $model;
 
 
     public function __construct(){
-        $this->model = new Sell_goodController();
+        $this->model = new Sell_goodsModel();
         parent::__construct($this->model);
     }
     
@@ -20,7 +20,7 @@ class Sell_goodController extends BaseController
         
     }
 
-    public function store()
+    public function create()
     {
         if($_SERVER["REQUEST_METHOD"] == "GET"){
             include "src/Views/Sell_goods/create.php";
@@ -35,16 +35,32 @@ class Sell_goodController extends BaseController
                 "Item_Description" => $_POST["Item_Description"]	
 
             ];
-            $this->model->store($data);
-            header("Location:index.php?page=sell_goods-list");
+            $this->model->create($data);
+            echo '<script type="text/javascript"> alert("Thêm thành công"); window.location.href = "index.php"  </script>';
         }
         
     }
 
-    public function delete($id) {
-        $this->model->delete($id);
-        header("Location:index.php?page=sell_goods-list");
+    public function delete($id)
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "GET") {
+            $sell_goods = $this->model->getById($id);
+            include "src/Views/Sell_goods/delete.php";
+        } else {
+            $data = [
+                "product_code" => $_POST["product_code"],
+                "product_name" => $_POST["product_name"],
+                "Sector" => $_POST["Sector"],
+                "Price" => $_POST["Price"],
+                "Quantity" => $_POST["Quantity"],
+                "Date_created" => $_POST["Date_created"],
+                "Item_Description" => $_POST["Item_Description"]	
+            ];
+            $this->model->delete($id);
+            echo '<script type="text/javascript"> alert("Xóa thành công"); window.location.href = "index.php"  </script>';
+        }
     }
+
 
     public function update($id) {
 
@@ -63,7 +79,7 @@ class Sell_goodController extends BaseController
 
             ];
             $this->model->update($id, $data);
-            header("Location:index.php?page=sell_goods-list");
+            echo '<script type="text/javascript"> alert("Sửa thành công"); window.location.href = "index.php"  </script>';
         }
     }
 
